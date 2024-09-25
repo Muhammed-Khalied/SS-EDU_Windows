@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ss_edu/theme/colors.dart';
+import 'package:ss_edu/theme/spacing.dart';
 
 Widget button({required Widget lable, required void Function()? function}) {
   return ElevatedButton.icon(
@@ -30,7 +31,6 @@ Widget button({required Widget lable, required void Function()? function}) {
       onPressed: function,
       label: lable);
 }
-
 
 Widget buttonSideBar(
     {required Widget lable, required void Function()? function}) {
@@ -62,45 +62,24 @@ Widget buttonSideBar(
   );
 }
 
-Widget buttonSideBarTest({
-  required Widget icon, // Icon to display
-  required void Function()? function, // Function to call on press
-}) {
-  return StatefulBuilder(
-    builder: (BuildContext context, StateSetter setState) {
-      Color iconColor = ColorsManager.black; // Default icon color
-      Color hoverColor = ColorsManager.mainOrange; // Color when hovered
-
-      return SizedBox(
-        width: 60.w,
-        height: 80.h,
-        child: MouseRegion(
-          onEnter: (_) {
-            setState(() {
-              iconColor = hoverColor; // Change icon color on hover
-            });
-          },
-          onExit: (_) {
-            setState(() {
-              iconColor = ColorsManager.black; // Change back to default color
-            });
-          },
-          child: GestureDetector(
-            onTap: () {
-              if (function != null) {
-                function(); // Call the provided function
-              }
-            },
-            child: IconTheme(
-              data: IconThemeData(
-                color: iconColor, // Use the current icon color
-                size: 24.sp, // Set the icon size
-              ),
-              child: icon, // Show the icon
-            ),
+Widget elevetedEditingButton(
+    String text, IconData? icon, Color? backgroundColorButton,
+    {required void Function()? onclicked}) {
+  return ElevatedButton(
+      style: ElevatedButton.styleFrom(backgroundColor: backgroundColorButton),
+      onPressed: onclicked,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            text,
+            style: TextStyle(color: ColorsManager.white, fontSize: 15.sp),
           ),
-        ),
-      );
-    },
-  );
+          horizentalSpace(5),
+          Icon(
+            icon,
+            color: ColorsManager.white,
+          )
+        ],
+      ));
 }

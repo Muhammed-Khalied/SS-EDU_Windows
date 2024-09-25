@@ -7,7 +7,7 @@ import 'package:ss_edu/screens/reports_screen.dart';
 import 'package:ss_edu/screens/settings_screen.dart';
 import 'package:ss_edu/screens/student_screen.dart';
 import 'package:ss_edu/screens/teacher_screen.dart';
-import 'package:ss_edu/screens/home_screen.dart';
+import 'package:ss_edu/home_screen.dart';
 import 'package:ss_edu/theme/colors.dart';
 
 void main() {

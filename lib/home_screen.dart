@@ -8,6 +8,8 @@ import 'package:ss_edu/screens/settings_screen.dart';
 import 'package:ss_edu/screens/student_screen.dart';
 import 'package:ss_edu/screens/teacher_screen.dart';
 import 'package:ss_edu/theme/colors.dart';
+import 'package:ss_edu/theme/spacing.dart';
+import 'package:ss_edu/theme/styles.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/";
@@ -34,21 +36,38 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var heightScreen = MediaQuery.of(context).size.height;
-    var widthScreen = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: WindowBorder(
-        color: ColorsManager.black.withOpacity(0.3),
+        color: ColorsManager.black.withOpacity(1),
         width: 0.0.w,
         child: Column(
           children: [
             WindowTitleBarBox(
               child: SizedBox(
                 child: Container(
+                  height: 20.h,
                   color: ColorsManager.mainOrange,
                   child: Row(
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "SS",
+                            style: TextStyles.fontHeader.copyWith(
+                              // color: ColorsManager.mainOrange,
+                              fontSize: 20.sp,
+                            ),
+                          ),
+                          horizentalSpace(10),
+                          Text(
+                            "EDU",
+                            style: TextStyles.fontHeader.copyWith(
+                              fontSize: 20.sp,
+                            ),
+                          ),
+                        ],
+                      ),
                       Expanded(child: MoveWindow()),
                       MinimizeWindowButton(animate: true),
                       MaximizeWindowButton(animate: true),
@@ -61,10 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: Row(
                 children: [
-                  // Main content area
                   Expanded(
-                    child: listPages[_selectedIndex], // Display selected page
+                    child: listPages[_selectedIndex],
                   ),
+                  // Expanded(
+                  //   child: listPages[_selectedIndex],
+                  // ),
 
                   // Vertical Divider
                   VerticalDivider(
