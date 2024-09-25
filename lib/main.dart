@@ -1,14 +1,13 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ss_edu/pages/test_nav_bar_2.dart';
 import 'package:ss_edu/screens/attendance_screen.dart';
-import 'package:ss_edu/screens/home_screen.dart';
-import 'package:ss_edu/screens/home_screen_navigation.dart';
+import 'package:ss_edu/screens/home_screen_navigate.dart';
 import 'package:ss_edu/screens/reports_screen.dart';
 import 'package:ss_edu/screens/settings_screen.dart';
 import 'package:ss_edu/screens/student_screen.dart';
 import 'package:ss_edu/screens/teacher_screen.dart';
+import 'package:ss_edu/screens/home_screen.dart';
 import 'package:ss_edu/theme/colors.dart';
 
 void main() {
@@ -37,15 +36,11 @@ class MyApp extends StatelessWidget {
               appBarTheme:
                   const AppBarTheme(backgroundColor: ColorsManager.white)),
           debugShowCheckedModeBanner: false,
-          // routes: {
-          //   HomeScreen.routeName: (context) => const HomeScreen(),
-
-          // },
           initialRoute: HomeScreen.routeName,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             Home_Screen_Navigation.routeName: (context) =>
-                Home_Screen_Navigation(),
+                const Home_Screen_Navigation(),
             TeacherScreen.routeName: (context) => TeacherScreen(),
             Attendance_Screen.routeName: (context) => Attendance_Screen(),
             StudentScreen.routeName: (context) => StudentScreen(),

@@ -1,15 +1,36 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ss_edu/components/elevated_button.dart';
-import 'package:ss_edu/screens/home_screen_navigation.dart';
+import 'package:ss_edu/screens/attendance_screen.dart';
+import 'package:ss_edu/screens/home_screen_navigate.dart';
+import 'package:ss_edu/screens/reports_screen.dart';
+import 'package:ss_edu/screens/settings_screen.dart';
+import 'package:ss_edu/screens/student_screen.dart';
 import 'package:ss_edu/screens/teacher_screen.dart';
 import 'package:ss_edu/theme/colors.dart';
-import 'package:ss_edu/theme/spacing.dart';
-import 'package:ss_edu/theme/styles.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String routeName = "/";
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  List<Widget> listPages = [
+    Home_Screen_Navigation(),
+    TeacherScreen(),
+    Attendance_Screen(),
+    StudentScreen(),
+    ReportsScreen(),
+    SettingsScreen(),
+
+    // Consider changing this to avoid a circular reference
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -29,376 +50,97 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(child: MoveWindow()),
-                      MinimizeWindowButton(
-                        animate: true,
-                      ),
-                      MaximizeWindowButton(
-                        animate: true,
-                      ),
-                      CloseWindowButton(
-                        animate: true,
-                      ),
+                      MinimizeWindowButton(animate: true),
+                      MaximizeWindowButton(animate: true),
+                      CloseWindowButton(animate: true),
                     ],
                   ),
                 ),
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Row(
-                      children: [
-                        const Spacer(flex: 60),
-                        Text("SS",
-                            style: TextStyles.fontHeader
-                                .copyWith(color: ColorsManager.mainOrange)),
-                        horizentalSpace(10),
-                        Text(
-                          "EDU",
-                          style: TextStyles.fontHeader,
-                        ),
-                        const Spacer(),
-                      ],
+              child: Row(
+                children: [
+                  // Main content area
+                  Expanded(
+                    child: listPages[_selectedIndex], // Display selected page
+                  ),
+
+                  // Vertical Divider
+                  VerticalDivider(
+                      thickness: 1.sp,
+                      width: 1.w,
+                      color: ColorsManager.black.withOpacity(0.3)),
+
+                  // NavigationRail
+                  NavigationRail(
+                    indicatorColor: ColorsManager.white,
+                    selectedIndex: _selectedIndex,
+                    onDestinationSelected: (value) {
+                      setState(() {
+                        _selectedIndex = value;
+                      });
+                    },
+                    backgroundColor: Colors.transparent,
+                    labelType: NavigationRailLabelType.all,
+                    selectedIconTheme: const IconThemeData(
+                      color: ColorsManager.mainOrange,
                     ),
-                    Divider(color: ColorsManager.black.withOpacity(0.3)),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            Image.asset(
-                              "assets/images/studing.png",
-                              fit: BoxFit
-                                  .contain, // Use contain to maintain image aspect ratio without cutting off parts
-                              width: ScreenUtil().setWidth(
-                                  300), // Adjust width based on screen size
-                              height: ScreenUtil().setHeight(
-                                  400), // Adjust height based on screen size
-                            ),
-                            Image.asset(
-                              "assets/images/logo_company.png",
-                              fit: BoxFit
-                                  .contain, // Use contain to maintain image aspect ratio without cutting off parts
-                              width: ScreenUtil().setWidth(
-                                  250), // Adjust width based on screen size
-                              height: ScreenUtil().setHeight(
-                                  190), // Adjust height based on screen size
-                            ),
-                          ],
-                        ),
-                        horizentalSpace(170),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                    width: 500.w,
-                                    height: 90.h,
-                                    child: TextFormField(
-                                      textDirection: TextDirection.rtl,
-                                      decoration: InputDecoration(
-                                          hintStyle: TextStyle(
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.w100),
-                                          hintTextDirection: TextDirection.rtl,
-                                          hintText: "ابحث ..............",
-                                          suffixIcon: Icon(
-                                            Icons.search,
-                                            size: 18.sp,
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: const BorderSide(
-                                              color: ColorsManager.mainOrange,
-                                            ),
-                                          ),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.r),
-                                          )),
-                                    )),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                button(
-                                    lable: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        ImageIcon(
-                                            const AssetImage(
-                                                "assets/images/bxs_category_orange.png"),
-                                            size: 45.sp),
-                                        Text(
-                                          "الحضور",
-                                          style: TextStyle(fontSize: 20.sp),
-                                        ),
-                                      ],
-                                    ),
-                                    function: () {}),
-                                horizentalSpace(10),
-                                button(
-                                    lable: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        ImageIcon(
-                                            const AssetImage(
-                                                "assets/images/mdi_teacher_orange.png"),
-                                            size: 45.sp),
-                                        Text(
-                                          "المدرسين",
-                                          style: TextStyle(fontSize: 20.sp),
-                                        ),
-                                      ],
-                                    ),
-                                    function: () {}),
-                                horizentalSpace(10),
-                                button(
-                                    lable: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        ImageIcon(
-                                            const AssetImage(
-                                                "assets/images/octicon_home-orange.png"),
-                                            size: 45.sp),
-                                        Text(
-                                          "الرئيسية",
-                                          style: TextStyle(fontSize: 20.sp),
-                                        ),
-                                      ],
-                                    ),
-                                    function: () {}),
-                              ],
-                            ),
-                            verticalSpace(10),
-                            Row(
-                              children: [
-                                button(
-                                    lable: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        ImageIcon(
-                                            const AssetImage(
-                                                "assets/images/uil_setting_orange.png"),
-                                            size: 45.sp),
-                                        Text(
-                                          "الأعدادات",
-                                          style: TextStyle(fontSize: 20.sp),
-                                        ),
-                                      ],
-                                    ),
-                                    function: () {}),
-                                horizentalSpace(10),
-                                button(
-                                    lable: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        ImageIcon(
-                                            const AssetImage(
-                                                "assets/images/oui_app-reporting_orange.png"),
-                                            size: 45.sp),
-                                        Text(
-                                          "التقارير",
-                                          style: TextStyle(fontSize: 20.sp),
-                                        ),
-                                      ],
-                                    ),
-                                    function: () {}),
-                                horizentalSpace(10),
-                                button(
-                                    lable: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        ImageIcon(
-                                            const AssetImage(
-                                                "assets/images/Vector_white.png"),
-                                            size: 45.sp),
-                                        Text(
-                                          "الطلاب",
-                                          style: TextStyle(fontSize: 20.sp),
-                                        ),
-                                      ],
-                                    ),
-                                    function: () {}),
-                              ],
-                            ),
-                          ],
-                        ),
-                        horizentalSpace(10),
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: ColorsManager.black.withOpacity(0.2),
-                          ),
-                          child: SizedBox(
-                            height: heightScreen,
-                            width: 1.sp,
-                          ),
-                        ),
-                        horizentalSpace(20),
-                        // Bottom Nav Bar
-                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        SizedBox(
-                          width: 80.w,
-                          height: heightScreen,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                      const AssetImage(
-                                        "assets/images/octicon_home-orange.png",
-                                      ),
-                                      size: 30.sp,
-                                    ),
-                                    Text(
-                                      "الرئيسية",
-                                      style: TextStyle(fontSize: 9.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {
-                                  Navigator.pushNamed(context,
-                                      Home_Screen_Navigation.routeName);
-                                },
-                              ),
-                              verticalSpace(10),
-                              buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                      const AssetImage(
-                                        "assets/images/mdi_teacher_orange.png",
-                                      ),
-                                      size: 30.sp,
-                                    ),
-                                    Text(
-                                      "المدرسين",
-                                      style: TextStyle(fontSize: 8.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {
-                                  Navigator.pushNamed(context,
-                                      TeacherScreen.routeName);
-                                },
-                              ),
-                              verticalSpace(10),
-                              buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                      const AssetImage(
-                                        "assets/images/bxs_category_orange.png",
-                                      ),
-                                      size: 30.sp,
-                                    ),
-                                    Text(
-                                      "الحضور",
-                                      style: TextStyle(fontSize: 9.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {},
-                              ),
-                              verticalSpace(10),
-                              buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                      const AssetImage(
-                                        "assets/images/Vector_white.png",
-                                      ),
-                                      size: 30.sp,
-                                    ),
-                                    Text(
-                                      "الطلاب",
-                                      style: TextStyle(fontSize: 9.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {},
-                              ),
-                              verticalSpace(10),
-                              buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                      const AssetImage(
-                                        "assets/images/oui_app-reporting_orange.png",
-                                      ),
-                                      size: 30.sp,
-                                    ),
-                                    Text(
-                                      "التقارير",
-                                      style: TextStyle(fontSize: 9.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {},
-                              ),
-                              verticalSpace(10),
-                              buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                      const AssetImage(
-                                        "assets/images/uil_setting_orange.png",
-                                      ),
-                                      size: 30.sp,
-                                    ),
-                                    Text(
-                                      "الأعدادات",
-                                      style: TextStyle(fontSize: 8.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {},
-                              ),
-                              verticalSpace(10),
-                            ],
-                          ),
-                        )
-                      ],
+                    selectedLabelTextStyle: const TextStyle(
+                      color: ColorsManager.mainOrange,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
+                    unselectedIconTheme:
+                        const IconThemeData(color: ColorsManager.black),
+                    unselectedLabelTextStyle:
+                        const TextStyle(color: ColorsManager.black),
+                    destinations: [
+                      NavigationRailDestination(
+                        indicatorColor: ColorsManager.mainOrange,
+                        icon: ImageIcon(
+                            const AssetImage(
+                                "assets/images/octicon_home-orange.png"),
+                            size: 30.sp),
+                        label: const Text("الرئيسية"),
+                      ),
+                      NavigationRailDestination(
+                        indicatorColor: ColorsManager.white,
+                        icon: ImageIcon(
+                            const AssetImage(
+                                "assets/images/mdi_teacher_orange.png"),
+                            size: 30.sp),
+                        label: const Text("المدرسين"),
+                      ),
+                      NavigationRailDestination(
+                        icon: ImageIcon(
+                            const AssetImage(
+                                "assets/images/bxs_category_orange.png"),
+                            size: 30.sp),
+                        label: const Text("الحصص"),
+                      ),
+                      NavigationRailDestination(
+                        icon: ImageIcon(
+                            const AssetImage("assets/images/Vector_white.png"),
+                            size: 30.sp),
+                        label: const Text("الطلاب"),
+                      ),
+                      NavigationRailDestination(
+                        icon: ImageIcon(
+                            const AssetImage(
+                                "assets/images/oui_app-reporting_orange.png"),
+                            size: 30.sp),
+                        label: const Text("التقارير"),
+                      ),
+                      NavigationRailDestination(
+                        icon: ImageIcon(
+                            const AssetImage(
+                                "assets/images/uil_setting_orange.png"),
+                            size: 30.sp),
+                        label: const Text("الأعدادات"),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
@@ -407,108 +149,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-/*
-                            buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                        const AssetImage(
-                                            "assets/images/octicon_home-orange.png"),
-                                        size: 30.sp),
-                                    Text(
-                                      "الرئيسية",
-                                      style: TextStyle(fontSize: 7.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {}),
-                            verticalSpace(20),
-                            buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                        const AssetImage(
-                                            "assets/images/mdi_teacher_orange.png"),
-                                        size: 30.sp),
-                                    Text(
-                                      "المدرسين",
-                                      style: TextStyle(fontSize: 7.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {}),
-                            verticalSpace(20),
-                            buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                        const AssetImage(
-                                            "assets/images/bxs_category_orange.png"),
-                                        size: 30.sp),
-                                    Text(
-                                      "الحضور",
-                                      style: TextStyle(fontSize: 7.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {}),
-                            verticalSpace(20),
-                            buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                        const AssetImage(
-                                            "assets/images/Vector_white.png"),
-                                        size: 30.sp),
-                                    Text(
-                                      "الطلاب",
-                                      style: TextStyle(fontSize: 7.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {}),
-                            verticalSpace(20),
-                            buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                        const AssetImage(
-                                            "assets/images/oui_app-reporting_orange.png"),
-                                        size: 30.sp),
-                                    Text(
-                                      "التقارير",
-                                      style: TextStyle(fontSize: 7.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {}),
-                            verticalSpace(20),
-                            buttonSideBar(
-                                lable: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ImageIcon(
-                                        const AssetImage(
-                                            "assets/images/uil_setting_orange.png"),
-                                        size: 30.sp),
-                                    Text(
-                                      "الأعدادات",
-                                      style: TextStyle(fontSize: 7.sp),
-                                    ),
-                                  ],
-                                ),
-                                function: () {}),
-                          */
