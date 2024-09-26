@@ -48,13 +48,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: WindowBorder(
         color: ColorsManager.black.withOpacity(1),
-        width: 0.0.w,
+        
         child: Column(
           children: [
             WindowTitleBarBox(
               child: SizedBox(
                 child: Container(
-                  height: 20.h,
+                  height: 10.h,
                   color: ColorsManager.mainOrange,
                   child: Row(
                     children: [

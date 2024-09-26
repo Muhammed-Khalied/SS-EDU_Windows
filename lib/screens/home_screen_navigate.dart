@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ss_edu/components/elevated_button.dart';
-import 'package:ss_edu/components/reusable_components.dart';
+import 'package:ss_edu/components/functions.dart';
+
 import 'package:ss_edu/theme/colors.dart';
 import 'package:ss_edu/theme/spacing.dart';
 
@@ -19,7 +19,7 @@ class Home_Screen_Navigation extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              const VerticalDivider(thickness: 1, width: 1),
+              // const VerticalDivider(thickness: 1, width: 1),
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
@@ -28,8 +28,10 @@ class Home_Screen_Navigation extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         // Header logo
-                        logo(),
+                        Functions.logo(),
+                        verticalSpace(4),
                         Divider(color: ColorsManager.black.withOpacity(0.3)),
+                        verticalSpace(10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -54,11 +56,11 @@ class Home_Screen_Navigation extends StatelessWidget {
                             // Column for Buttons
                             Column(
                               children: [
-                                horizentalSpace(20),
+                                horizentalSpace(10),
                                 // Buttons Section 1
                                 Row(
                                   children: [
-                                    buildIconButton(
+                                    Functions.buildIconButton(
                                       "assets/images/bxs_category_orange.png",
                                       "الحضور",
                                       () {
@@ -66,7 +68,7 @@ class Home_Screen_Navigation extends StatelessWidget {
                                       },
                                     ),
                                     horizentalSpace(10),
-                                    buildIconButton(
+                                    Functions.buildIconButton(
                                       "assets/images/mdi_teacher_orange.png",
                                       "المدرسين",
                                       () {
@@ -74,7 +76,7 @@ class Home_Screen_Navigation extends StatelessWidget {
                                       },
                                     ),
                                     horizentalSpace(10),
-                                    buildIconButton(
+                                    Functions.buildIconButton(
                                       "assets/images/octicon_home-orange.png",
                                       "الرئيسية",
                                       () {
@@ -87,7 +89,7 @@ class Home_Screen_Navigation extends StatelessWidget {
                                 // Buttons Section 2
                                 Row(
                                   children: [
-                                    buildIconButton(
+                                    Functions.buildIconButton(
                                       "assets/images/uil_setting_orange.png",
                                       "الأعدادات",
                                       () {
@@ -95,7 +97,7 @@ class Home_Screen_Navigation extends StatelessWidget {
                                       },
                                     ),
                                     horizentalSpace(10),
-                                    buildIconButton(
+                                    Functions.buildIconButton(
                                       "assets/images/oui_app-reporting_orange.png",
                                       "التقارير",
                                       () {
@@ -103,7 +105,7 @@ class Home_Screen_Navigation extends StatelessWidget {
                                       },
                                     ),
                                     horizentalSpace(10),
-                                    buildIconButton(
+                                    Functions.buildIconButton(
                                       "assets/images/Vector_white.png",
                                       "الطلاب",
                                       () {
