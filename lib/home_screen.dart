@@ -83,9 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Expanded(
                     child: listPages[_selectedIndex],
                   ),
-                  // Expanded(
-                  //   child: listPages[_selectedIndex],
-                  // ),
+                  
 
                   // Vertical Divider
                   VerticalDivider(
