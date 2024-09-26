@@ -40,7 +40,9 @@ class MyApp extends StatelessWidget {
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             Home_Screen_Navigation.routeName: (context) =>
-                const Home_Screen_Navigation(),
+                Home_Screen_Navigation(
+                  onItemSelected: (p0) {},
+                ),
             TeacherScreen.routeName: (context) => TeacherScreen(),
             Attendance_Screen.routeName: (context) => Attendance_Screen(),
             StudentScreen.routeName: (context) => StudentScreen(),
