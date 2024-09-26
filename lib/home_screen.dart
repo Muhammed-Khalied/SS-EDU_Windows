@@ -21,18 +21,27 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  late List<Widget> listPages;
 
-  List<Widget> listPages = [
-    Home_Screen_Navigation(),
-    TeacherScreen(),
-    Attendance_Screen(),
-    StudentScreen(),
-    ReportsScreen(),
-    SettingsScreen(),
+  @override
+  void initState() {
+    super.initState();
 
-    // Consider changing this to avoid a circular reference
-  ];
+    listPages = [
+      Home_Screen_Navigation(onItemSelected: _onItemSelected),
+      TeacherScreen(),
+      Attendance_Screen(),
+      StudentScreen(),
+      ReportsScreen(),
+      SettingsScreen(),
+    ];
+  }
+
+  void _onItemSelected(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             "SS",
                             style: TextStyles.fontHeader.copyWith(
-                              // color: ColorsManager.mainOrange,
                               fontSize: 20.sp,
                             ),
                           ),
@@ -83,23 +91,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   Expanded(
                     child: listPages[_selectedIndex],
                   ),
-                  // Expanded(
-                  //   child: listPages[_selectedIndex],
-                  // ),
-
-                  // Vertical Divider
                   VerticalDivider(
-                      thickness: 1.sp,
-                      width: 1.w,
-                      color: ColorsManager.black.withOpacity(0.3)),
-
+                    thickness: 1.sp,
+                    width: 1.w,
+                    color: ColorsManager.black.withOpacity(0.3),
+                  ),
                   // NavigationRail
                   NavigationRail(
                     indicatorColor: ColorsManager.white,
                     selectedIndex: _selectedIndex,
                     onDestinationSelected: (value) {
                       setState(() {
-                        _selectedIndex = value;
+                        _onItemSelected(value);
                       });
                     },
                     backgroundColor: Colors.transparent,

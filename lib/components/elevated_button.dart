@@ -83,3 +83,20 @@ Widget elevetedEditingButton(
         ],
       ));
 }
+
+  // Widget to create a button with an image and label
+  
+  Widget buildIconButton(
+      String imagePath, String label, VoidCallback onPressed) {
+    return button(
+      lable: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ImageIcon(AssetImage(imagePath), size: 45.sp),
+          Text(label, style: TextStyle(fontSize: 20.sp)),
+        ],
+      ),
+      function: onPressed,
+    );
+  }

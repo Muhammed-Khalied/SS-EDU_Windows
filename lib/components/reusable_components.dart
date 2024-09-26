@@ -80,3 +80,6 @@ Widget textDetails(String lable, String value) {
     ],
   );
 }
+
+
+
