@@ -5,14 +5,14 @@ import 'package:ss_edu/theme/spacing.dart';
 import 'package:ss_edu/theme/styles.dart';
 
 class Functions {
-  static Widget teacherTextFormField({required String? label}) {
+  static Widget teacherTextFormField(TextEditingController? control,{required String? label}) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SizedBox(
         width: 350.w,
         height: 50.h,
-        child: TextFormField(
-          cursorColor: ColorsManager.black,
+        child: TextFormField(controller: control,
+          cursorColor: ColorsManager.mainOrange,
           keyboardType: TextInputType.text,
           textAlign: TextAlign.center,
           decoration: InputDecoration(
@@ -79,7 +79,7 @@ class Functions {
   }
 
   static Widget logo() {
-    return SizedBox(  
+    return SizedBox(
       height: 28.h,
       width: 28.w,
       child: Row(
