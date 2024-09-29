@@ -5,13 +5,15 @@ import 'package:ss_edu/theme/spacing.dart';
 import 'package:ss_edu/theme/styles.dart';
 
 class Functions {
-  static Widget teacherTextFormField(TextEditingController? control,{required String? label}) {
+  static Widget teacherTextFormField(TextEditingController? control,
+      {required String? label}) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SizedBox(
         width: 350.w,
         height: 50.h,
-        child: TextFormField(controller: control,
+        child: TextFormField(
+          controller: control,
           cursorColor: ColorsManager.mainOrange,
           keyboardType: TextInputType.text,
           textAlign: TextAlign.center,
@@ -79,29 +81,29 @@ class Functions {
   }
 
   static Widget logo() {
-    return SizedBox(
-      height: 28.h,
-      width: 28.w,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          horizentalSpace(870),
-          Text(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        horizentalSpace(870),
+        Flexible(
+          child: Text(
             "SS",
             style: TextStyles.fontHeader.copyWith(
               color: ColorsManager.mainOrange,
               fontSize: 25.sp,
             ),
           ),
-          horizentalSpace(10),
-          Text(
+        ),
+        horizentalSpace(10),
+        Flexible(
+          child: Text(
             "EDU",
             style: TextStyles.fontHeader.copyWith(
               fontSize: 25.sp,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -109,19 +111,23 @@ class Functions {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text(
-          value,
-          style: TextStyle(
-              color: ColorsManager.black,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold),
+        Flexible(
+          child: Text(
+            value,
+            style: TextStyle(
+                color: ColorsManager.black,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold),
+          ),
         ),
-        Text(
-          ": $lable ",
-          style: TextStyle(
-              color: ColorsManager.mainOrange,
-              fontSize: 25.sp,
-              fontWeight: FontWeight.bold),
+        Flexible(
+          child: Text(
+            ": $lable ",
+            style: TextStyle(
+                color: ColorsManager.mainOrange,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ],
     );

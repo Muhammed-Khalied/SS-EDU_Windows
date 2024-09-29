@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ss_edu/theme/colors.dart';
 
 class Attendance_Screen extends StatelessWidget {
   static const String routeName = "/Attendance_Screen";
@@ -6,8 +7,11 @@ class Attendance_Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("Attendance_Screen"),
+    return ColoredBox(
+      color: ColorsManager.red,
+      child: Center(
+        child: Text("Attendance_Screen"),
+      ),
     );
   }
 }

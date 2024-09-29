@@ -1,15 +1,15 @@
 class Teacher {
   final int id;
-  final String name;
-  final String subject;
-  final String phone;
-  final String whatsapp;
+  late final String name;
+  late final String subject;
+  late final String phoneNumber;
+  late final String whatsAppNumber;
 
   Teacher({
     required this.id,
     required this.name,
     required this.subject,
-    required this.phone,
-    required this.whatsapp,
+    required this.phoneNumber,
+    required this.whatsAppNumber,
   });
 }

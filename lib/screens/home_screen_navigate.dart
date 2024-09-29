@@ -4,6 +4,7 @@ import 'package:ss_edu/components/functions.dart';
 
 import 'package:ss_edu/theme/colors.dart';
 import 'package:ss_edu/theme/spacing.dart';
+import 'package:ss_edu/theme/styles.dart';
 
 class Home_Screen_Navigation extends StatelessWidget {
   final Function(int) onItemSelected;
@@ -27,8 +28,29 @@ class Home_Screen_Navigation extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Header logo
-                        Functions.logo(),
+                        SizedBox(
+                          height: 28.h,
+                          width: double.infinity,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "SS",
+                                style: TextStyles.fontHeader.copyWith(
+                                  color: ColorsManager.mainOrange,
+                                  fontSize: 25.sp,
+                                ),
+                              ),
+                              horizentalSpace(10),
+                              Text(
+                                "EDU",
+                                style: TextStyles.fontHeader.copyWith(
+                                  fontSize: 25.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                         verticalSpace(4),
                         Divider(color: ColorsManager.black.withOpacity(0.3)),
                         verticalSpace(10),
